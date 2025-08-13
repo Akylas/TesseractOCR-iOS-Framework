@@ -5,22 +5,22 @@
 ![Tesseract](https://img.shields.io/badge/Tesseract-5.5.1-orange.svg)
 ![Build](https://github.com/thebenfarmer/TesseractOCR-iOS-Framework/actions/workflows/build-framework.yml/badge.svg)
 
-A comprehensive iOS XCFramework for **Tesseract 5.5.1** with **professional-grade JPEG-12bit integration** and complete imaging pipeline for exceptional OCR quality in iOS applications.
+A comprehensive iOS XCFramework for **Tesseract 5.5.1** with **JPEG-12bit integration** and complete imaging pipeline for exceptional OCR quality in iOS applications.
 
 ## Key Features
 
-- **Advanced Tesseract 5.5.1**: Latest OCR engine with 54,000+ optimized functions and 100+ language support
-- **Professional JPEG-12bit**: **88 specialized j12* functions** with libjpeg-turbo 3.0.4 runtime precision selection
-- **Complete Imaging Pipeline**: 6,197 Leptonica functions, 900 PNG, 1,105 TIFF symbols for comprehensive image processing
+- **Advanced Tesseract 5.5.1**: Latest OCR engine with 52,977 optimized functions and 100+ language support
+- **JPEG-12bit**: **88 specialized j12* functions** with libjpeg-turbo 3.0.4 runtime precision selection
+- **Complete Imaging Pipeline**: 402 Leptonica functions, 936 PNG, 1,196 TIFF symbols for comprehensive image processing
 - **Enhanced OCR Quality**: Handles complex layouts, compressed images, and challenging document types
 - **Massive Static Integration**: 425MB framework with all dependencies statically linked (no external requirements)
 - **Universal iOS Binary**: Optimized arm64 device (142MB) + arm64/x86_64 simulator (282MB) support
-- **Broad Compatibility**: iOS 13.0+ with professional-grade cross-compilation
+- **Broad Compatibility**: iOS 13.0+ with optimized cross-compilation
 - **Automated Build**: CI/CD pipeline with automated testing and artifact generation
 
-## Professional-Grade Image Processing
+## Image Processing
 
-This framework provides a **complete imaging pipeline** with professional-grade libraries:
+This framework provides a **complete imaging pipeline** with integrated libraries:
 
 **JPEG-12bit Excellence (libjpeg-turbo 3.0.4):**
 - **88 specialized j12* functions** for 12-bit precision processing
@@ -28,10 +28,10 @@ This framework provides a **complete imaging pipeline** with professional-grade 
 - Advanced SIMD acceleration and arithmetic coding support
 
 **Complete Image Format Support:**
-- **Leptonica 6,197 functions**: Professional image processing and analysis
-- **PNG (900 symbols)**: Full PNG specification with transparency and metadata
-- **TIFF (1,105 symbols)**: Complete TIFF support including compression variants
-- **270 total JPEG functions**: Comprehensive JPEG handling and optimization
+- **Leptonica (402 functions)**: Image processing and analysis
+- **PNG (936 symbols)**: Full PNG specification with transparency and metadata
+- **TIFF (1,196 symbols)**: Complete TIFF support including compression variants
+- **57 JPEG API functions**: Comprehensive JPEG handling and optimization
 
 **Enhanced OCR Quality for:**
 - High-resolution scanned documents and technical drawings
@@ -77,7 +77,7 @@ let recognizedText = tesseract?.recognizedText
 ```
 
 **Pre-built Framework Benefits:**
-- **Professional-grade integration**: 54,000+ optimized functions ready to use
+- **Complete integration**: 52,977 optimized functions ready to use
 - **Complete imaging pipeline**: All image formats and processing capabilities included
 - **Massive static libraries** (~425MB) with zero external dependencies
 - **Production-tested**: Thoroughly validated for iOS deployment
@@ -156,12 +156,12 @@ let tesseract = G8Tesseract(language: "eng+deu+fra")
 
 ## Performance & Quality
 
-**Professional-Grade Integration Benefits:**
-- **54,000+ optimized functions**: Complete OCR and imaging pipeline
+**Integration Benefits:**
+- **52,977 optimized functions**: Complete OCR and imaging pipeline
 - **12-bit JPEG precision**: 88 specialized functions with runtime selection
-- **Comprehensive image support**: 6,197 Leptonica + 900 PNG + 1,105 TIFF functions
+- **Comprehensive image support**: 402 Leptonica + 936 PNG + 1,196 TIFF functions
 - **Zero external dependencies**: All libraries statically integrated
-- **Memory-optimized**: Professional cross-compilation with iOS-specific optimizations
+- **Memory-optimized**: Optimized cross-compilation with iOS-specific optimizations
 - **Multi-architecture native**: Separate optimized binaries for device and simulator
 
 ## Build System
@@ -170,11 +170,11 @@ let tesseract = G8Tesseract(language: "eng+deu+fra")
 
 **Pre-built frameworks are available in [GitHub Releases](https://github.com/thebenfarmer/TesseractOCR-iOS-Framework/releases):**
 
-- **Professional Integration**: 54,000+ functions with complete imaging pipeline
+- **Complete Integration**: 52,977 functions with complete imaging pipeline
 - **Advanced JPEG-12bit**: 88 specialized j12* functions with libjpeg-turbo 3.0.4
-- **Comprehensive Libraries**: Tesseract 5.5.1, Leptonica 6,197 functions, PNG/TIFF complete support
+- **Comprehensive Libraries**: Tesseract 5.5.1, Leptonica 402 functions, PNG/TIFF complete support
 - **Massive Static Integration**: 425MB (142MB device + 282MB simulator) with zero dependencies
-- **Production-Grade**: Professional cross-compilation optimized for iOS deployment
+- **Production-Ready**: Optimized cross-compilation for iOS deployment
 
 ### Universal Build System
 
@@ -190,8 +190,8 @@ let tesseract = G8Tesseract(language: "eng+deu+fra")
 
 Every commit is automatically tested with:
 - **macOS Latest** with **Xcode Latest**
-- **Complete Framework Build** from scratch with all 54,000+ functions
-- **Professional Integration Verification** (88 j12* JPEG-12bit symbols)
+- **Complete Framework Build** from scratch with all 52,977 functions
+- **Integration Verification** (88 j12* JPEG-12bit symbols)
 - **Multi-Architecture Testing** (arm64 device + arm64/x86_64 simulator)
 - **Comprehensive Artifact Upload** for immediate download and integration
 
@@ -228,11 +228,11 @@ This project includes components with different licenses:
 - Include language data files in app bundle
 
 ### Performance Issues
-- Framework includes 54,000+ optimized functions for comprehensive image processing
+- Framework includes 52,977 optimized functions for comprehensive image processing
 - Leverage 88 j12* JPEG-12bit functions for high-quality image processing
 - Consider image preprocessing with integrated Leptonica functions for optimal results
 - Monitor memory usage with large images (425MB static framework)
 
 ---
 
-**Built with Tesseract 5.5.1, professional-grade JPEG-12bit integration, and complete imaging pipeline (54,000+ functions) for exceptional iOS OCR quality.**
+**Built with Tesseract 5.5.1, JPEG-12bit integration, and complete imaging pipeline (52,977 functions) for exceptional iOS OCR quality.**

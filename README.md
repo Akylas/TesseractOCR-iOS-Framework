@@ -5,7 +5,7 @@
 ![Tesseract](https://img.shields.io/badge/Tesseract-5.5.1-orange.svg)
 ![Build](https://github.com/thebenfarmer/TesseractOCR-iOS-Framework/actions/workflows/build-framework.yml/badge.svg)
 
-A professional iOS XCFramework for **Tesseract 5.5.1** with **superior JPEG-12bit integration** for high-quality OCR recognition in iOS applications.
+An iOS XCFramework for **Tesseract 5.5.1** with **superior JPEG-12bit integration** for high-quality OCR recognition in iOS applications.
 
 ## 🎯 Key Features
 
@@ -15,7 +15,7 @@ A professional iOS XCFramework for **Tesseract 5.5.1** with **superior JPEG-12bi
 - **Complete Integration**: Leptonica, libjpeg-turbo, libpng, libtiff, zlib - everything included
 - **iOS XCFramework**: Universal binary supporting device (arm64) and simulator (arm64/x86_64)
 - **Broad Compatibility**: Supports iOS 13.0+ (iPhone 6s and newer)
-- **Automated Build**: Professional CI/CD pipeline with automatic testing
+- **Automated Build**: CI/CD pipeline with automatic testing
 
 ## 🔬 Superior JPEG Processing
 

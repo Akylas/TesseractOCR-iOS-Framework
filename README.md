@@ -172,18 +172,6 @@ let tesseract = G8Tesseract(language: "eng+deu+fra")
 - **Environment Detection**: Adapts behavior for GitHub Actions vs local
 - **Realistic Testing**: CI tests actual build pipeline, not just structure
 
-## Technical Specifications
-
-| Feature | This Framework | Standard |
-|---------|----------------|----------|
-| j12* JPEG symbols | **88** | ~41 |
-| JPEG API functions | **34** | ~30 |
-| Framework size | ~425MB | ~150MB |
-| Enhanced OCR | Yes | No |
-| Universal binary | Yes | Yes |
-| iOS compatibility | 13.0+ | varies |
-| CI/CD testing | Yes | No |
-
 ## Continuous Integration
 
 Every commit is automatically tested with:

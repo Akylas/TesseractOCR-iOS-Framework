@@ -1,0 +1,47 @@
+# Build artifacts
+xcframework_build/
+xcframework_final_build/
+build/
+*.log
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Xcode
+*.xcworkspace
+\!*.xcworkspace/contents.xcworkspacedata
+*.xcuserdata
+
+# Temporary files
+*.tmp
+*.temp
+
+# Large XCFramework - build with build_script.sh instead
+TesseractOCR.xcframework/
+TesseractOCR-*.xcframework/
+TesseractOCR.xcframework.backup/
+
+# ================================================================
+# SOURCE LIBRARIES (Downloaded automatically by build_script.sh)
+# ================================================================
+tesseract-5.5.1/
+tesseract-build/
+leptonica-build/
+libjpeg-build/
+libpng-build/
+libtiff-build/
+zlib-build/
+
+# Build outputs
+*.a
+*.o
+*.dylib
+
+# Local build directories
+build/

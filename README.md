@@ -79,15 +79,18 @@ let recognizedText = tesseract?.recognizedText
 git clone https://github.com/thebenfarmer/TesseractOCR-iOS-Framework.git
 cd TesseractOCR-iOS-Framework
 
-# Build framework (attempts production build, fallback to demo)
+# Build production framework (local optimized build)
+./build_script_local.sh
+
+# OR use universal build script (same as CI/CD)
 ./build_script.sh
 ```
 
-**📊 Build System Behavior:**
-- 🎯 **First**: Attempts complete production build with all dependencies
-- ✅ **Success**: Creates real XCFramework (~425MB) with 88 j12* symbols  
-- ❌ **Fallback**: Creates demo framework (headers + structure) for development
-- 🔧 **Same script** used by CI/CD for realistic testing
+**📊 Build Scripts:**
+- 🔥 **`build_script_local.sh`**: Optimized local production build with 88 j12* symbols
+- 🔧 **`build_script.sh`**: Universal script (CI/local) - attempts production, fallback to demo
+- ✅ **Both create**: Complete XCFramework (~425MB) when successful
+- 🎯 **CI/CD**: Uses `build_script.sh` for realistic testing
 
 ## 🏗️ Framework Architecture
 

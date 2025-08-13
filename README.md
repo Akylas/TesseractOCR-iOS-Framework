@@ -7,7 +7,7 @@
 
 An iOS XCFramework for **Tesseract 5.5.1** with **superior JPEG-12bit integration** for high-quality OCR recognition in iOS applications.
 
-## 🎯 Key Features
+## Key Features
 
 - **Latest Tesseract 5.5.1**: Advanced OCR engine with improved accuracy and 100+ language support
 - **Superior JPEG Integration**: **88 j12* symbols** for enhanced JPEG-12bit processing
@@ -17,7 +17,7 @@ An iOS XCFramework for **Tesseract 5.5.1** with **superior JPEG-12bit integratio
 - **Broad Compatibility**: Supports iOS 13.0+ (iPhone 6s and newer)
 - **Automated Build**: CI/CD pipeline with automatic testing
 
-## 🔬 Superior JPEG Processing
+## Superior JPEG Processing
 
 This framework includes **enhanced JPEG-12bit support** with **88 j12* processing functions**, providing superior OCR quality for:
 
@@ -29,24 +29,24 @@ This framework includes **enhanced JPEG-12bit support** with **88 j12* processin
 - Multi-language content
 - Low-quality or distorted images
 
-## 📱 Use Cases
+## Use Cases
 
 Perfect for a wide range of iOS applications:
 
-- 📄 **Document Processing**: Invoices, contracts, receipts, PDFs
-- 💳 **Business Cards**: Automatic contact information extraction
-- 🌍 **Translation Apps**: OCR text from images for real-time translation
-- 📱 **Accessibility**: Convert images to text for screen readers
-- 🏪 **Receipt Scanning**: Automated expense tracking
-- 📚 **Digital Libraries**: Convert books and notes to digital text
-- 🔍 **Real-time OCR**: Live camera text recognition
-- 📊 **Form Processing**: Automated data extraction
-- 🏦 **Financial Documents**: Bank statements, insurance papers
-- 📝 **Note Taking**: Convert handwritten content to text
+- **Document Processing**: Invoices, contracts, receipts, PDFs
+- **Business Cards**: Automatic contact information extraction
+- **Translation Apps**: OCR text from images for real-time translation
+- **Accessibility**: Convert images to text for screen readers
+- **Receipt Scanning**: Automated expense tracking
+- **Digital Libraries**: Convert books and notes to digital text
+- **Real-time OCR**: Live camera text recognition
+- **Form Processing**: Automated data extraction
+- **Financial Documents**: Bank statements, insurance papers
+- **Note Taking**: Convert handwritten content to text
 
-## 🚀 Quick Start
+## Quick Start
 
-### 🎯 Recommended: Using Pre-built Framework
+### Recommended: Using Pre-built Framework
 
 **For production apps, use the complete pre-built framework:**
 
@@ -64,13 +64,13 @@ tesseract?.recognize()
 let recognizedText = tesseract?.recognizedText
 ```
 
-**✅ Pre-built Framework Benefits:**
+**Pre-built Framework Benefits:**
 - **88 j12* JPEG-12bit symbols** for superior OCR quality
 - **Complete static libraries** (~425MB with all dependencies)
 - **Ready to use** - no build required
 - **Tested and optimized** for production use
 
-### 🛠️ Building Framework Locally
+### Building Framework Locally
 
 **For development, testing, and local production builds:**
 
@@ -86,13 +86,13 @@ cd TesseractOCR-iOS-Framework
 ./build_script.sh
 ```
 
-**📊 Build Scripts:**
-- 🔥 **`build_script_local.sh`**: Optimized local production build with 88 j12* symbols
-- 🔧 **`build_script.sh`**: Universal script (CI/local) - attempts production, fallback to demo
-- ✅ **Both create**: Complete XCFramework (~425MB) when successful
-- 🎯 **CI/CD**: Uses `build_script.sh` for realistic testing
+**Build Scripts:**
+- **`build_script_local.sh`**: Optimized local production build with 88 j12* symbols
+- **`build_script.sh`**: Universal script (CI/local) - attempts production, fallback to demo
+- **Both create**: Complete XCFramework (~425MB) when successful
+- **CI/CD**: Uses `build_script.sh` for realistic testing
 
-## 🏗️ Framework Architecture
+## Framework Architecture
 
 - **Device Framework**: arm64 iOS (optimized for iPhones/iPads)  
 - **Simulator Framework**: Universal Binary (arm64 + x86_64)
@@ -100,7 +100,7 @@ cd TesseractOCR-iOS-Framework
 - **JPEG Integration**: 88 j12* + 34 JPEG API symbols
 - **Dependencies**: All included (Leptonica, libjpeg-turbo, libpng, libtiff, zlib)
 
-## 📦 Installation Options
+## Installation Options
 
 ### Swift Package Manager
 
@@ -122,14 +122,14 @@ pod 'TesseractOCR-iOS', :git => 'https://github.com/thebenfarmer/TesseractOCR-iO
 2. Drag `TesseractOCR.xcframework` into your project
 3. Embed the framework in your target
 
-## 🛠️ System Requirements
+## System Requirements
 
 - **iOS**: 13.0+ (Broad compatibility - iPhone 6s and newer)
 - **Xcode**: 12.0+ (for building from source)  
 - **macOS**: 10.15+ (for building from source)
 - **Disk Space**: 2GB free space (for building)
 
-## 🌍 Language Support
+## Language Support
 
 Download language packs from [Tesseract tessdata_fast](https://github.com/tesseract-ocr/tessdata_fast) and add to your app bundle:
 
@@ -141,7 +141,7 @@ let tesseract = G8Tesseract(language: "deu")
 let tesseract = G8Tesseract(language: "eng+deu+fra")
 ```
 
-## ⚡ Performance & Quality
+## Performance & Quality
 
 **Superior Integration Benefits:**
 - **88 j12* JPEG-12bit symbols** (vs ~41 in standard implementations)
@@ -150,9 +150,9 @@ let tesseract = G8Tesseract(language: "eng+deu+fra")
 - **Fast initialization** and processing
 - **Multi-architecture support**
 
-## 🔧 Build System
+## Build System
 
-### 🎯 Production Framework (Recommended)
+### Production Framework (Recommended)
 
 **Pre-built frameworks are available in [GitHub Releases](https://github.com/thebenfarmer/TesseractOCR-iOS-Framework/releases):**
 
@@ -162,7 +162,7 @@ let tesseract = G8Tesseract(language: "eng+deu+fra")
 - **Cross-Compiled**: iOS device (arm64) + simulator (arm64/x86_64)
 - **Production Ready**: Tested and optimized for app store deployment
 
-### 🛠️ Universal Build System
+### Universal Build System
 
 **Single build script for all environments:**
 
@@ -172,28 +172,28 @@ let tesseract = G8Tesseract(language: "eng+deu+fra")
 - **Environment Detection**: Adapts behavior for GitHub Actions vs local
 - **Realistic Testing**: CI tests actual build pipeline, not just structure
 
-## 📊 Technical Specifications
+## Technical Specifications
 
 | Feature | This Framework | Standard |
 |---------|----------------|----------|
 | j12* JPEG symbols | **88** | ~41 |
 | JPEG API functions | **34** | ~30 |
 | Framework size | ~425MB | ~150MB |
-| Enhanced OCR | ✅ | ❌ |
-| Universal binary | ✅ | ✅ |
+| Enhanced OCR | Yes | No |
+| Universal binary | Yes | Yes |
 | iOS compatibility | 13.0+ | varies |
-| CI/CD testing | ✅ | ❌ |
+| CI/CD testing | Yes | No |
 
-## 🧪 Continuous Integration
+## Continuous Integration
 
 Every commit is automatically tested with:
-- ✅ **macOS Latest** with **Xcode Latest**
-- ✅ **Complete Framework Build** from scratch  
-- ✅ **JPEG Symbol Verification** (88 j12* symbols)
-- ✅ **Architecture Testing** (device + simulator)
-- ✅ **Artifact Upload** for easy download
+- **macOS Latest** with **Xcode Latest**
+- **Complete Framework Build** from scratch  
+- **JPEG Symbol Verification** (88 j12* symbols)
+- **Architecture Testing** (device + simulator)
+- **Artifact Upload** for easy download
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -203,7 +203,7 @@ Every commit is automatically tested with:
 6. Push to the branch (`git push origin feature/amazing-feature`)
 7. Open a Pull Request
 
-## 📄 License
+## License
 
 This project includes components with different licenses:
 - **Tesseract OCR**: Apache 2.0
@@ -213,7 +213,7 @@ This project includes components with different licenses:
 - **libtiff**: MIT-style
 - **zlib**: zlib License
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### Build Issues
 - Install Xcode Command Line Tools: `xcode-select --install`

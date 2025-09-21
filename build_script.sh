@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ================================================================
-# TesseractOCR XCFramework - Universal Build Script
+# tesseract XCFramework - Universal Build Script
 # ================================================================
 # Builds complete XCFramework with all dependencies
 # Same process for CI and local builds - realistic testing!
@@ -18,16 +18,16 @@ log_error() { echo -e "${RED}❌ $1${NC}"; }
 log_progress() { echo -e "${YELLOW}🔄 $1${NC}"; }
 
 echo -e "${GREEN}================================================================${NC}"
-echo -e "${GREEN}🚀 TesseractOCR XCFramework - Universal Builder${NC}"
+echo -e "${GREEN}🚀 tesseract XCFramework - Universal Builder${NC}"
 echo -e "${GREEN}================================================================${NC}"
 
 # Configuration
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BUILD_DIR="$SCRIPT_DIR/build"
-XCFRAMEWORK_OUTPUT="$SCRIPT_DIR/TesseractOCR.xcframework"
+XCFRAMEWORK_OUTPUT="$SCRIPT_DIR/tesseract.xcframework"
 
 # iOS SDK Configuration
-IOS_VERSION_MIN="13.0"
+IOS_VERSION_MIN="12.0"
 IOS_SDK=$(xcrun --sdk iphoneos --show-sdk-path)
 IOS_SIM_SDK=$(xcrun --sdk iphonesimulator --show-sdk-path)
 MACOS_SDK=$(xcrun --sdk macosx --show-sdk-path)
@@ -65,7 +65,7 @@ download_dependencies() {
     # Tesseract 5.5.1
     if [ ! -d "tesseract-5.5.1" ]; then
         log_progress "Downloading Tesseract 5.5.1..."
-        curl -L "https://github.com/tesseract-ocr/tesseract/archive/5.5.1.tar.gz" | tar xz
+        curl -L "https://github.com/Akylas/tesseract/archive/5.5.1.tar.gz" | tar xz
         log_success "Tesseract downloaded"
     fi
     
@@ -325,8 +325,8 @@ create_xcframework() {
     log_success "All build outputs validated"
     
     # Create frameworks for each platform
-    local ios_framework="$BUILD_DIR/TesseractOCR-ios.framework"
-    local sim_framework="$BUILD_DIR/TesseractOCR-simulator.framework"
+    local ios_framework="$BUILD_DIR/tesseract-ios.framework"
+    local sim_framework="$BUILD_DIR/tesseract-simulator.framework"
     
     # iOS device framework
     mkdir -p "$ios_framework/Headers"
@@ -336,7 +336,7 @@ create_xcframework() {
     fi
     
     # Copy iOS binary
-    if ! cp "$BUILD_DIR/install-arm64-ios/lib/libtesseract.a" "$ios_framework/TesseractOCR"; then
+    if ! cp "$BUILD_DIR/install-arm64-ios/lib/libtesseract.a" "$ios_framework/tesseract"; then
         log_error "Failed to copy iOS binary"
         return 1
     fi
@@ -354,7 +354,7 @@ create_xcframework() {
             return 1
         fi
         
-        if ! lipo "${lipo_args[@]}" -create -output "$sim_framework/TesseractOCR"; then
+        if ! lipo "${lipo_args[@]}" -create -output "$sim_framework/tesseract"; then
             log_error "Failed to create universal simulator binary"
             return 1
         fi
@@ -362,7 +362,7 @@ create_xcframework() {
         # Single simulator architecture
         mkdir -p "$sim_framework/Headers"
         cp -r "$BUILD_DIR/install-arm64-simulator/include/tesseract/"* "$sim_framework/Headers/"
-        cp "$BUILD_DIR/install-arm64-simulator/lib/libtesseract.a" "$sim_framework/TesseractOCR"
+        cp "$BUILD_DIR/install-arm64-simulator/lib/libtesseract.a" "$sim_framework/tesseract"
     fi
     
     # Create XCFramework with proper error handling
@@ -405,18 +405,18 @@ create_demo_framework() {
     cd "$SCRIPT_DIR"
     
     # Create XCFramework structure
-    mkdir -p "$XCFRAMEWORK_OUTPUT/ios-arm64/TesseractOCR.framework/Headers"
-    mkdir -p "$XCFRAMEWORK_OUTPUT/ios-arm64_x86_64-simulator/TesseractOCR.framework/Headers"
+    mkdir -p "$XCFRAMEWORK_OUTPUT/ios-arm64/tesseract.framework/Headers"
+    mkdir -p "$XCFRAMEWORK_OUTPUT/ios-arm64_x86_64-simulator/tesseract.framework/Headers"
     
     # Copy headers if available
     if [ -d "$BUILD_DIR/tesseract-5.5.1/include/tesseract" ]; then
-        cp $BUILD_DIR/tesseract-5.5.1/include/tesseract/*.h "$XCFRAMEWORK_OUTPUT/ios-arm64/TesseractOCR.framework/Headers/" 2>/dev/null || true
-        cp $BUILD_DIR/tesseract-5.5.1/include/tesseract/*.h "$XCFRAMEWORK_OUTPUT/ios-arm64_x86_64-simulator/TesseractOCR.framework/Headers/" 2>/dev/null || true
+        cp $BUILD_DIR/tesseract-5.5.1/include/tesseract/*.h "$XCFRAMEWORK_OUTPUT/ios-arm64/tesseract.framework/Headers/" 2>/dev/null || true
+        cp $BUILD_DIR/tesseract-5.5.1/include/tesseract/*.h "$XCFRAMEWORK_OUTPUT/ios-arm64_x86_64-simulator/tesseract.framework/Headers/" 2>/dev/null || true
     fi
     
     # Create placeholder binaries
-    echo "Demo - Download production framework from Releases" > "$XCFRAMEWORK_OUTPUT/ios-arm64/TesseractOCR.framework/TesseractOCR"
-    echo "Demo - Download production framework from Releases" > "$XCFRAMEWORK_OUTPUT/ios-arm64_x86_64-simulator/TesseractOCR.framework/TesseractOCR"
+    echo "Demo - Download production framework from Releases" > "$XCFRAMEWORK_OUTPUT/ios-arm64/tesseract.framework/tesseract"
+    echo "Demo - Download production framework from Releases" > "$XCFRAMEWORK_OUTPUT/ios-arm64_x86_64-simulator/tesseract.framework/tesseract"
     
     # Create Info.plist files (shortened for demo)
     cat > "$XCFRAMEWORK_OUTPUT/Info.plist" << 'EOF'
@@ -455,7 +455,7 @@ if attempt_full_build && create_xcframework; then
     
     # Verify j12* symbols if we have nm
     if command -v nm >/dev/null; then
-        JPEG_SYMBOLS=$(find "$XCFRAMEWORK_OUTPUT" -name "TesseractOCR" -type f | head -1 | xargs nm -D 2>/dev/null | grep "j12" | wc -l || echo "0")
+        JPEG_SYMBOLS=$(find "$XCFRAMEWORK_OUTPUT" -name "tesseract" -type f | head -1 | xargs nm -D 2>/dev/null | grep "j12" | wc -l || echo "0")
         log_info "JPEG j12* symbols found: $JPEG_SYMBOLS"
         
         if [ "$JPEG_SYMBOLS" -ge "80" ]; then
@@ -487,7 +487,7 @@ else
 fi
 
 echo -e "${GREEN}================================================================${NC}"
-if [ -f "$XCFRAMEWORK_OUTPUT/ios-arm64/TesseractOCR.framework/TesseractOCR" ] && [ $(wc -c < "$XCFRAMEWORK_OUTPUT/ios-arm64/TesseractOCR.framework/TesseractOCR") -gt 1000 ]; then
+if [ -f "$XCFRAMEWORK_OUTPUT/ios-arm64/tesseract.framework/tesseract" ] && [ $(wc -c < "$XCFRAMEWORK_OUTPUT/ios-arm64/tesseract.framework/tesseract") -gt 1000 ]; then
     echo -e "${GREEN}🚀 PRODUCTION FRAMEWORK BUILD COMPLETED${NC}"
     echo -e "${GREEN}   Real XCFramework with compiled binaries${NC}"
 else  

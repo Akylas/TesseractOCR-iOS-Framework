@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # ================================================================
-# TesseractOCR XCFramework - EXACT REFERENCE REPLICA
+# tesseract XCFramework - EXACT REFERENCE REPLICA
 # ================================================================
-# Erstellt EXAKT das gleiche XCFramework wie xcframework/TesseractOCR.xcframework
+# Erstellt EXAKT das gleiche XCFramework wie xcframework/tesseract.xcframework
 # Basierend auf Reverse Engineering der Reference Implementation
 # ================================================================
 
-set -e
+# set -e
 
 # Colors
 GREEN='\033[0;32m' YELLOW='\033[1;33m' RED='\033[0;31m' BLUE='\033[0;34m' NC='\033[0m'
@@ -18,7 +18,7 @@ log_error() { echo -e "${RED}❌ $1${NC}"; }
 log_progress() { echo -e "${YELLOW}🔄 $1${NC}"; }
 
 echo -e "${GREEN}================================================================${NC}"
-echo -e "${GREEN}🎯 TesseractOCR XCFramework - Professional iOS Builder${NC}"
+echo -e "${GREEN}🎯 tesseract XCFramework - Professional iOS Builder${NC}"
 echo -e "${GREEN}================================================================${NC}"
 
 # ================================================================
@@ -28,9 +28,10 @@ download_sources() {
     log_info "Checking for required source libraries..."
     
     # Tesseract 5.5.1
-    if [ ! -d "tesseract-5.5.1" ]; then
+    if [ ! -d "tesseract-build" ]; then
         log_progress "Downloading Tesseract 5.5.1..."
-        curl -L "https://github.com/tesseract-ocr/tesseract/archive/5.5.1.tar.gz" | tar xz
+        mkdir -p tesseract-build
+        curl -L "https://github.com/tesseract-ocr/tesseract/archive/5.5.1.tar.gz" | tar xz -C tesseract-build --strip-components=1
         log_success "Tesseract 5.5.1 downloaded"
     else
         log_info "Tesseract 5.5.1 found locally"
@@ -92,7 +93,7 @@ download_sources() {
 # Konfiguration
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BUILD_ROOT="$SCRIPT_DIR/xcframework_build"
-XCFRAMEWORK_OUTPUT="$SCRIPT_DIR/TesseractOCR.xcframework"
+XCFRAMEWORK_OUTPUT="$SCRIPT_DIR/tesseract.xcframework"
 
 # SDKs
 DEVICE_SDK="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk"
@@ -362,7 +363,7 @@ build_architecture() {
 # ================================================================
 create_reference_framework() {
     local PLATFORM=$1
-    local FRAMEWORK_DIR="$BUILD_ROOT/frameworks/$PLATFORM/TesseractOCR.framework"
+    local FRAMEWORK_DIR="$BUILD_ROOT/frameworks/$PLATFORM/tesseract.framework"
     
     log_progress "Creating Reference-Level framework for $PLATFORM..."
     mkdir -p "$FRAMEWORK_DIR"
@@ -375,7 +376,7 @@ create_reference_framework() {
         # Combine libraries for single architecture
         cd "$BUILD_ROOT" && mkdir -p "temp_device" && cd "temp_device"
         find "$BUILD_DIR" -name "*.a" -exec ar x {} \; 2>/dev/null
-        ar rcs "$FRAMEWORK_DIR/TesseractOCR" *.o
+        ar rcs "$FRAMEWORK_DIR/tesseract" *.o
         cd .. && rm -rf "temp_device"
         
         # COMPLETE HEADER INTEGRATION
@@ -423,7 +424,7 @@ create_reference_framework() {
         cd .. && rm -rf "temp_sim_x86_64"
         
         # Create FAT BINARY
-        lipo -create sim_arm64.a sim_x86_64.a -output "$FRAMEWORK_DIR/TesseractOCR"
+        lipo -create sim_arm64.a sim_x86_64.a -output "$FRAMEWORK_DIR/tesseract"
         rm sim_arm64.a sim_x86_64.a
         
         # MINIMAL HEADER INTEGRATION (Only Tesseract API)
@@ -440,11 +441,11 @@ create_reference_framework() {
 <plist version="1.0">
 <dict>
     <key>CFBundleExecutable</key>
-    <string>TesseractOCR</string>
+    <string>tesseract</string>
     <key>CFBundleIdentifier</key>
     <string>com.tesseract.ocr</string>
     <key>CFBundleName</key>
-    <string>TesseractOCR</string>
+    <string>tesseract</string>
     <key>CFBundlePackageType</key>
     <string>FMWK</string>
     <key>CFBundleShortVersionString</key>
@@ -476,8 +477,8 @@ create_reference_framework "simulator"
 # ================================================================
 log_progress "Creating Reference Replica XCFramework..."
 
-DEVICE_FRAMEWORK="$BUILD_ROOT/frameworks/device/TesseractOCR.framework"
-SIMULATOR_FRAMEWORK="$BUILD_ROOT/frameworks/simulator/TesseractOCR.framework"
+DEVICE_FRAMEWORK="$BUILD_ROOT/frameworks/device/tesseract.framework"
+SIMULATOR_FRAMEWORK="$BUILD_ROOT/frameworks/simulator/tesseract.framework"
 
 xcodebuild -create-xcframework \
     -framework "$DEVICE_FRAMEWORK" \
@@ -497,7 +498,7 @@ if [ -d "$XCFRAMEWORK_OUTPUT" ]; then
     echo ""
     echo -e "${BLUE}🔍 VERIFICATION vs REFERENCE:${NC}"
     
-    REPLICA_BINARY=$(find "$XCFRAMEWORK_OUTPUT" -name "TesseractOCR" -type f | head -1)
+    REPLICA_BINARY=$(find "$XCFRAMEWORK_OUTPUT" -name "tesseract" -type f | head -1)
     if [ -f "$REPLICA_BINARY" ]; then
         REPLICA_J12=$(nm "$REPLICA_BINARY" | grep j12 | wc -l | xargs)
         REPLICA_JPEG=$(nm "$REPLICA_BINARY" | grep -E 'jpeg_(start|read|write)' | wc -l | xargs)
@@ -507,11 +508,11 @@ if [ -d "$XCFRAMEWORK_OUTPUT" ]; then
         echo -e "${GREEN}📚 Replica Headers: ${YELLOW}${REPLICA_HEADERS} files${NC}"
         
         # Compare with Reference
-        REF_BINARY=$(find xcframework/TesseractOCR.xcframework -name "TesseractOCR" -type f | head -1)
+        REF_BINARY=$(find xcframework/tesseract.xcframework -name "tesseract" -type f | head -1)
         if [ -f "$REF_BINARY" ]; then
             REF_J12=$(nm "$REF_BINARY" | grep j12 | wc -l | xargs)
             REF_JPEG=$(nm "$REF_BINARY" | grep -E 'jpeg_(start|read|write)' | wc -l | xargs)
-            REF_HEADERS=$(find xcframework/TesseractOCR.xcframework -name "*.h" | wc -l | xargs)
+            REF_HEADERS=$(find xcframework/tesseract.xcframework -name "*.h" | wc -l | xargs)
             
             echo -e "${BLUE}📊 Reference Integration: ${YELLOW}${REF_J12} j12* + ${REF_JPEG} JPEG API symbols${NC}"
             echo -e "${BLUE}📚 Reference Headers: ${YELLOW}${REF_HEADERS} files${NC}"
@@ -530,7 +531,7 @@ else
 fi
 
 # Cleanup
-rm -rf "$BUILD_ROOT"
+# rm -rf "$BUILD_ROOT"
 
 echo -e "${GREEN}================================================================${NC}"
 echo -e "${GREEN}🎉 Reference Replica XCFramework Build Complete!${NC}"

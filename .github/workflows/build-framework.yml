@@ -3,8 +3,6 @@ name: "Build iOS Framework"
 on:
   push:
     branches: [ main, develop ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   build-framework:
@@ -36,21 +34,21 @@ jobs:
     
     - name: "Verify framework creation"
       run: |
-        if [ -d "TesseractOCR.xcframework" ]; then
+        if [ -d "tesseract.xcframework" ]; then
           # Framework size and info
-          FRAMEWORK_SIZE=$(du -sh TesseractOCR.xcframework | cut -f1)
+          FRAMEWORK_SIZE=$(du -sh tesseract.xcframework | cut -f1)
           echo "📦 Framework size: $FRAMEWORK_SIZE"
           
           # Architecture support
           echo "🏗️ Framework structure:"
-          ls -la TesseractOCR.xcframework/
+          ls -la tesseract.xcframework/
           
           # Header verification
-          HEADER_COUNT=$(find TesseractOCR.xcframework -name "*.h" | wc -l)
+          HEADER_COUNT=$(find tesseract.xcframework -name "*.h" | wc -l)
           echo "📋 Headers included: $HEADER_COUNT files"
           
           # Check if this is production or demo framework
-          BINARY_SIZE=$(wc -c < "TesseractOCR.xcframework/ios-arm64/TesseractOCR.framework/TesseractOCR" || echo "0")
+          BINARY_SIZE=$(wc -c < "tesseract.xcframework/ios-arm64/tesseract.framework/tesseract" || echo "0")
           if [ "$BINARY_SIZE" -gt 1000 ]; then
             echo "🚀 PRODUCTION BUILD SUCCESSFUL!"
             echo "✅ Real XCFramework with compiled binaries"
@@ -58,7 +56,7 @@ jobs:
             
             # Check for j12* symbols if possible
             if command -v nm >/dev/null; then
-              JPEG_SYMBOLS=$(nm -D TesseractOCR.xcframework/ios-arm64/TesseractOCR.framework/TesseractOCR 2>/dev/null | grep "j12" | wc -l || echo "0")
+              JPEG_SYMBOLS=$(nm -D tesseract.xcframework/ios-arm64/tesseract.framework/tesseract 2>/dev/null | grep "j12" | wc -l || echo "0")
               echo "🎯 JPEG j12* symbols detected: $JPEG_SYMBOLS"
             fi
             
@@ -78,21 +76,21 @@ jobs:
       if: success()
       uses: actions/upload-artifact@v4
       with:
-        name: TesseractOCR-Framework-${{ github.sha }}
-        path: TesseractOCR.xcframework/
+        name: tesseract-Framework-${{ github.sha }}
+        path: tesseract.xcframework/
         retention-days: 30
         compression-level: 6
     
     - name: "Generate build summary"
       if: always()
       run: |
-        echo "## 🚀 TesseractOCR Framework Build Summary" >> $GITHUB_STEP_SUMMARY
+        echo "## 🚀 tesseract Framework Build Summary" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         
-        if [ -d "TesseractOCR.xcframework" ]; then
-          FRAMEWORK_SIZE=$(du -sh TesseractOCR.xcframework | cut -f1)
-          HEADER_COUNT=$(find TesseractOCR.xcframework -name "*.h" | wc -l)
-          BINARY_SIZE=$(wc -c < "TesseractOCR.xcframework/ios-arm64/TesseractOCR.framework/TesseractOCR" 2>/dev/null || echo "0")
+        if [ -d "tesseract.xcframework" ]; then
+          FRAMEWORK_SIZE=$(du -sh tesseract.xcframework | cut -f1)
+          HEADER_COUNT=$(find tesseract.xcframework -name "*.h" | wc -l)
+          BINARY_SIZE=$(wc -c < "tesseract.xcframework/ios-arm64/tesseract.framework/tesseract" 2>/dev/null || echo "0")
           
           if [ "$BINARY_SIZE" -gt 1000 ]; then
             echo "🎉 **Status**: PRODUCTION BUILD SUCCESSFUL!" >> $GITHUB_STEP_SUMMARY
@@ -103,7 +101,7 @@ jobs:
             
             # Check j12* symbols
             if command -v nm >/dev/null; then
-              JPEG_SYMBOLS=$(nm -D TesseractOCR.xcframework/ios-arm64/TesseractOCR.framework/TesseractOCR 2>/dev/null | grep "j12" | wc -l || echo "0")
+              JPEG_SYMBOLS=$(nm -D tesseract.xcframework/ios-arm64/tesseract.framework/tesseract 2>/dev/null | grep "j12" | wc -l || echo "0")
               echo "🎯 **JPEG j12* Symbols**: $JPEG_SYMBOLS detected" >> $GITHUB_STEP_SUMMARY
             fi
             
@@ -131,12 +129,12 @@ jobs:
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "### 🎯 For Production Use" >> $GITHUB_STEP_SUMMARY
             echo "**Download the complete framework** from releases:" >> $GITHUB_STEP_SUMMARY
-            echo "👉 [**GitHub Releases**](https://github.com/thebenfarmer/TesseractOCR-iOS-Framework/releases)" >> $GITHUB_STEP_SUMMARY
+            echo "👉 [**GitHub Releases**](https://github.com/thebenfarmer/tesseract-iOS-Framework/releases)" >> $GITHUB_STEP_SUMMARY
           fi
           
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### Framework Structure" >> $GITHUB_STEP_SUMMARY
-          ls TesseractOCR.xcframework/ | sed 's/^/- /' >> $GITHUB_STEP_SUMMARY
+          ls tesseract.xcframework/ | sed 's/^/- /' >> $GITHUB_STEP_SUMMARY
           
         else
           echo "❌ **Status**: Framework Build Failed" >> $GITHUB_STEP_SUMMARY

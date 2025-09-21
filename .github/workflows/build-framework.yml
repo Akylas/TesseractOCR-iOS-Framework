@@ -1,8 +1,7 @@
 name: "Build iOS Framework"
 
 on:
-  push:
-    branches: [ main, develop ]
+  workflow_dispatch:
 
 jobs:
   build-framework:
